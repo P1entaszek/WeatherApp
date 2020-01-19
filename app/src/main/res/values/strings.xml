@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="title_activity_maps">Weather app</string>
+    <string name="open_weather_api_key" translatable="false">6e2a2642803b430de88ccd5137a83066</string>
+    <string name="google_maps_key" translatable="false">AIzaSyCAc-TzfpEJcIhwcIrjbPDBMD3lrGOhfX4</string>
+</resources>
