@@ -1,4 +1,4 @@
-package com.prod.weatherapp.datasource.features.weather;
+package com.prod.weatherapp.features.weather;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +16,7 @@ import com.prod.weatherapp.datasource.model.ApiData;
 import com.prod.weatherapp.datasource.model.Weather;
 import com.prod.weatherapp.datasource.model.WeatherData;
 
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -46,13 +47,15 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     @Override
     public void onBindViewHolder(@NonNull WeatherViewRow holder, int position) {
         holder.city.setText(apiData.getCity().getName());
+        //TODO Powydzielać do metod
         WeatherData weatherData = apiData.getList().get(position);
-
         DateTimeFormatter currentFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
         DateTimeFormatter convertedOutputFormatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
         LocalDateTime localDateTime = LocalDateTime.parse(weatherData.getDtTxt(), currentFormatter);
         holder.date.setText(localDateTime.format(convertedOutputFormatter));
-        holder.temperature.setText(weatherData.getTemperatureData().getStringTemp());
+        DecimalFormat df = new DecimalFormat("#");
+        String temperature = String.valueOf(df.format(weatherData.getTemperatureData().getTemp()));
+        holder.temperature.setText(temperature + " " +  context.getString(R.string.celsius_symbol));
         List<Weather> weather = weatherData.getWeather();
         setImageResource(weather.get(0).getMain(), holder);
         holder.weatherDescription.setText(weather.get(0).getDescription());

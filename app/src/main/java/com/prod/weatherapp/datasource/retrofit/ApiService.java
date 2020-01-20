@@ -15,5 +15,6 @@ public interface ApiService {
     @GET("forecast/")
     Observable<ApiData> getWeatherData(@Query("lat") String latitude,
                                      @Query("lon") String longitude,
+                                     @Query("units") String units,
                                      @Query("appid") String appID);
 }

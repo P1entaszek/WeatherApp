@@ -1,4 +1,4 @@
-package com.prod.weatherapp.datasource.features.weather;
+package com.prod.weatherapp.features.weather;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -18,8 +18,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.prod.weatherapp.R;
-import com.prod.weatherapp.datasource.features.weather.MVP.MVPContract;
-import com.prod.weatherapp.datasource.features.weather.MVP.Presenter;
+import com.prod.weatherapp.features.weather.MVP.MVPContract;
+import com.prod.weatherapp.features.weather.MVP.Presenter;
 import com.prod.weatherapp.datasource.model.ApiData;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 

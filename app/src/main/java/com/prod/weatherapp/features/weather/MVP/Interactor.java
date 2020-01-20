@@ -1,9 +1,9 @@
-package com.prod.weatherapp.datasource.features.weather.MVP;
+package com.prod.weatherapp.features.weather.MVP;
 
 import androidx.annotation.Nullable;
 
 import com.prod.weatherapp.datasource.ServerResponseListener;
-import com.prod.weatherapp.datasource.WeatherAppClient;
+import com.prod.weatherapp.WeatherAppClient;
 import com.prod.weatherapp.datasource.model.ApiData;
 
 /**

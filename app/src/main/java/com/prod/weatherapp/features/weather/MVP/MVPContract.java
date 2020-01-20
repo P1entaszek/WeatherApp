@@ -1,4 +1,4 @@
-package com.prod.weatherapp.datasource.features.weather.MVP;
+package com.prod.weatherapp.features.weather.MVP;
 
 import com.prod.weatherapp.datasource.model.ApiData;
 

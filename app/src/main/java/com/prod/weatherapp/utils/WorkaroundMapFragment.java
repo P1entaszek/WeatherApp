@@ -1,4 +1,4 @@
-package com.prod.weatherapp.datasource.utils;
+package com.prod.weatherapp.utils;
 
 import android.content.Context;
 import android.os.Bundle;

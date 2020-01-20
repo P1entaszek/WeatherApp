@@ -26,16 +26,8 @@ public class WeatherData {
         return temperatureData;
     }
 
-    public void setTemperatureData(TemperatureData temperatureData) {
-        this.temperatureData = temperatureData;
-    }
-
     public Integer getDt() {
         return dt;
-    }
-
-    public void setDt(Integer dt) {
-        this.dt = dt;
     }
 
     public java.util.List<Weather> getWeather() {
@@ -49,9 +41,4 @@ public class WeatherData {
     public String getDtTxt() {
         return dtTxt;
     }
-
-    public void setDtTxt(String dtTxt) {
-        this.dtTxt = dtTxt;
-    }
-
 }

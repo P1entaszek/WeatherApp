@@ -1,8 +1,7 @@
-package com.prod.weatherapp.datasource;
+package com.prod.weatherapp;
 
-import com.prod.weatherapp.Config;
+import com.prod.weatherapp.datasource.ServerResponseListener;
 import com.prod.weatherapp.datasource.model.ApiData;
-import com.prod.weatherapp.datasource.model.WeatherData;
 import com.prod.weatherapp.datasource.retrofit.ApiService;
 import com.prod.weatherapp.datasource.retrofit.RetrofitClient;
 
@@ -34,7 +33,7 @@ public class WeatherAppClient {
 
     public void getAllWeatherData(final String lat, final String lon, final ServerResponseListener<ApiData> listener){
         getApiService()
-                .getWeatherData(lat, lon, Config.openWeatherMapApiKey)
+                .getWeatherData(lat, lon, "metric", Config.openWeatherMapApiKey)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ApiData>() {
