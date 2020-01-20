@@ -1,5 +1,6 @@
 package com.prod.weatherapp.datasource.features.weather;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.prod.weatherapp.R;
 import com.prod.weatherapp.datasource.model.ApiData;
 import com.prod.weatherapp.datasource.model.Weather;
 import com.prod.weatherapp.datasource.model.WeatherData;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,9 +29,11 @@ import butterknife.ButterKnife;
 public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.WeatherViewRow> {
 
     private final ApiData apiData;
+    private final Context context;
 
-    public WeatherListAdapter(ApiData apiData) {
+    public WeatherListAdapter(ApiData apiData, Context context) {
         this.apiData = apiData;
+        this.context = context;
     }
 
     @NonNull
@@ -45,22 +47,16 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     public void onBindViewHolder(@NonNull WeatherViewRow holder, int position) {
         holder.city.setText(apiData.getCity().getName());
         WeatherData weatherData = apiData.getList().get(position);
-        holder.date.setText(formatDate(weatherData.getDtTxt()));
+
+        DateTimeFormatter currentFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
+        DateTimeFormatter convertedOutputFormatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+        LocalDateTime localDateTime = LocalDateTime.parse(weatherData.getDtTxt(), currentFormatter);
+        holder.date.setText(localDateTime.format(convertedOutputFormatter));
         holder.temperature.setText(weatherData.getTemperatureData().getStringTemp());
         List<Weather> weather = weatherData.getWeather();
+        setImageResource(weather.get(0).getMain(), holder);
         holder.weatherDescription.setText(weather.get(0).getDescription());
 
-    }
-
-    private String formatDate(String dt) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH");
-        Date date = null;
-        try {
-            date = dateFormat.parse(dt);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return String.valueOf(date);
     }
 
     @Override
@@ -81,11 +77,18 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         TextView weatherDescription;
 
 
-
-            public WeatherViewRow(View view) {
-                super(view);
-                ButterKnife.bind(this,view);
-            }
+        public WeatherViewRow(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
         }
     }
+
+    private void setImageResource(final String weatherCondition, final WeatherViewRow holder){
+        if(weatherCondition.equalsIgnoreCase("clouds")) Glide.with(context).load(R.drawable.cloud).into(holder.image);
+        if(weatherCondition.equalsIgnoreCase("rain")) Glide.with(context).load(R.drawable.rain).into(holder.image);
+        if(weatherCondition.equalsIgnoreCase("clear")) Glide.with(context).load(R.drawable.sun).into(holder.image);
+        if(weatherCondition.equalsIgnoreCase("snow")) Glide.with(context).load(R.drawable.snow).into(holder.image);
+        if(weatherCondition.equalsIgnoreCase("extreme")) Glide.with(context).load(R.drawable.extreme).into(holder.image);
+    }
+}
 

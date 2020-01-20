@@ -4,7 +4,6 @@ import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,6 @@ import com.prod.weatherapp.R;
 import com.prod.weatherapp.datasource.features.weather.MVP.MVPContract;
 import com.prod.weatherapp.datasource.features.weather.MVP.Presenter;
 import com.prod.weatherapp.datasource.model.ApiData;
-import com.prod.weatherapp.datasource.utils.WorkaroundMapFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
@@ -94,7 +92,7 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void showWeatherList(ApiData weatherData) {
-        adapter = new WeatherListAdapter(weatherData);
+        adapter = new WeatherListAdapter(weatherData, getApplicationContext());
         weatherListRecyclerView.setAdapter(adapter);
         Toast.makeText(getApplicationContext(), "udalo sie", Toast.LENGTH_LONG).show();
     }
