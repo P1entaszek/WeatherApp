@@ -4,9 +4,12 @@ import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +22,7 @@ import com.prod.weatherapp.R;
 import com.prod.weatherapp.datasource.features.weather.MVP.MVPContract;
 import com.prod.weatherapp.datasource.features.weather.MVP.Presenter;
 import com.prod.weatherapp.datasource.model.ApiData;
+import com.prod.weatherapp.datasource.utils.WorkaroundMapFragment;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
@@ -30,9 +34,12 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
     private RxPermissions rxPermissions;
     private MVPContract.Presenter presenter;
     private GoogleMap map;
+    private WeatherListAdapter adapter;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.weatherListRecyclerView)
+    RecyclerView weatherListRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.getUiSettings().setScrollGesturesEnabled(false);
         rxPermissions
                 .request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe(granted -> {
@@ -86,17 +94,27 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void showWeatherList(ApiData weatherData) {
+        adapter = new WeatherListAdapter(weatherData);
+        weatherListRecyclerView.setAdapter(adapter);
         Toast.makeText(getApplicationContext(), "udalo sie", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void setupView() {
-
         rxPermissions = new RxPermissions(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
         fusedLocationProviderClient = new FusedLocationProviderClient(this);
+        weatherListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+       /*
+        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapFragment);
+
+        mapFragment.setListener(() -> scrollView.requestDisallowInterceptTouchEvent(false));
+        mapFragment.getMapAsync(this);
+        fusedLocationProviderClient = new FusedLocationProviderClient(this);
+        weatherListRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
     }
 
     @Override

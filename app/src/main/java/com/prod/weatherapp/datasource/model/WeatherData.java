@@ -18,15 +18,6 @@ public class WeatherData {
     @SerializedName("weather")
     @Expose
     private java.util.List<Weather> weather = null;
-    @SerializedName("clouds")
-    @Expose
-    private Clouds clouds;
-    @SerializedName("wind")
-    @Expose
-    private Wind wind;
-    @SerializedName("sys")
-    @Expose
-    private Sys sys;
     @SerializedName("dt_txt")
     @Expose
     private String dtTxt;
@@ -53,30 +44,6 @@ public class WeatherData {
 
     public void setWeather(java.util.List<Weather> weather) {
         this.weather = weather;
-    }
-
-    public Clouds getClouds() {
-        return clouds;
-    }
-
-    public void setClouds(Clouds clouds) {
-        this.clouds = clouds;
-    }
-
-    public Wind getWind() {
-        return wind;
-    }
-
-    public void setWind(Wind wind) {
-        this.wind = wind;
-    }
-
-    public Sys getSys() {
-        return sys;
-    }
-
-    public void setSys(Sys sys) {
-        this.sys = sys;
     }
 
     public String getDtTxt() {
