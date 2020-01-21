@@ -18,10 +18,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.prod.weatherapp.R;
+import com.prod.weatherapp.datasource.model.ApiData;
 import com.prod.weatherapp.features.weather.MVP.MVPContract;
 import com.prod.weatherapp.features.weather.MVP.Presenter;
-import com.prod.weatherapp.datasource.model.ApiData;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import net.danlew.android.joda.JodaTimeAndroid;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,7 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_app);
         ButterKnife.bind(this);
+        JodaTimeAndroid.init(this);
         presenter = new Presenter();
         presenter.attach(this);
         presenter.initView();
@@ -87,14 +90,13 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void showError(String error) {
-        Toast.makeText(getApplicationContext(), "szlag", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showWeatherList(ApiData weatherData) {
         adapter = new WeatherListAdapter(weatherData, getApplicationContext());
         weatherListRecyclerView.setAdapter(adapter);
-        Toast.makeText(getApplicationContext(), "udalo sie", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -105,14 +107,6 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
         mapFragment.getMapAsync(this);
         fusedLocationProviderClient = new FusedLocationProviderClient(this);
         weatherListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-       /*
-        WorkaroundMapFragment mapFragment = (WorkaroundMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.mapFragment);
-
-        mapFragment.setListener(() -> scrollView.requestDisallowInterceptTouchEvent(false));
-        mapFragment.getMapAsync(this);
-        fusedLocationProviderClient = new FusedLocationProviderClient(this);
-        weatherListRecyclerView.setLayoutManager(new LinearLayoutManager(this));*/
     }
 
     @Override

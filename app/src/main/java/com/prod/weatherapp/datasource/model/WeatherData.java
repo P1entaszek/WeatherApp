@@ -22,6 +22,18 @@ public class WeatherData {
     @Expose
     private String dtTxt;
 
+    public void setDt(Integer dt) {
+        this.dt = dt;
+    }
+
+    public void setTemperatureData(TemperatureData temperatureData) {
+        this.temperatureData = temperatureData;
+    }
+
+    public void setDtTxt(String dtTxt) {
+        this.dtTxt = dtTxt;
+    }
+
     public TemperatureData getTemperatureData() {
         return temperatureData;
     }

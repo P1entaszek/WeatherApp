@@ -20,6 +20,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Observable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +48,6 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     @Override
     public void onBindViewHolder(@NonNull WeatherViewRow holder, int position) {
         holder.city.setText(apiData.getCity().getName());
-        //TODO Powydzielać do metod
         WeatherData weatherData = apiData.getList().get(position);
         DateTimeFormatter currentFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss");
         DateTimeFormatter convertedOutputFormatter = DateTimeFormatter.ofPattern("uuuu/MM/dd");
@@ -59,6 +59,7 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
         List<Weather> weather = weatherData.getWeather();
         setImageResource(weather.get(0).getMain(), holder);
         holder.weatherDescription.setText(weather.get(0).getDescription());
+
 
     }
 
@@ -87,9 +88,9 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     }
 
     private void setImageResource(final String weatherCondition, final WeatherViewRow holder){
-        if(weatherCondition.equalsIgnoreCase("clouds")) Glide.with(context).load(R.drawable.cloud).into(holder.image);
+        if(weatherCondition.equalsIgnoreCase("clouds")) Glide.with(context).load(R.mipmap.ic_cloud).into(holder.image);
         if(weatherCondition.equalsIgnoreCase("rain")) Glide.with(context).load(R.drawable.rain).into(holder.image);
-        if(weatherCondition.equalsIgnoreCase("clear")) Glide.with(context).load(R.drawable.sun).into(holder.image);
+        if(weatherCondition.equalsIgnoreCase("clear")) Glide.with(context).load(R.mipmap.ic_sun).into(holder.image);
         if(weatherCondition.equalsIgnoreCase("snow")) Glide.with(context).load(R.drawable.snow).into(holder.image);
         if(weatherCondition.equalsIgnoreCase("extreme")) Glide.with(context).load(R.drawable.extreme).into(holder.image);
     }
