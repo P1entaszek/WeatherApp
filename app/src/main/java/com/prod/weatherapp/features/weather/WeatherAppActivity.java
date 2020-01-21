@@ -88,7 +88,7 @@ public class WeatherAppActivity extends BaseActivity implements OnMapReadyCallba
 
     @Override
     public void showError(String error) {
-        if (Utils.isNetworkAvailable(this)) Toast.makeText(
+        if (!Utils.isNetworkAvailable(this)) Toast.makeText(
                 getApplicationContext(),
                 this.getString(R.string.check_is_network_connection_available),
                 Toast.LENGTH_LONG).show();
