@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,14 +20,13 @@ import com.prod.weatherapp.R;
 import com.prod.weatherapp.datasource.model.ApiData;
 import com.prod.weatherapp.features.weather.MVP.MVPContract;
 import com.prod.weatherapp.features.weather.MVP.Presenter;
+import com.prod.weatherapp.utils.BaseActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-
-import net.danlew.android.joda.JodaTimeAndroid;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyCallback, MVPContract.View {
+public class WeatherAppActivity extends BaseActivity implements OnMapReadyCallback, MVPContract.View {
 
     private FusedLocationProviderClient fusedLocationProviderClient;
     private RxPermissions rxPermissions;
@@ -46,7 +44,6 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_app);
         ButterKnife.bind(this);
-        JodaTimeAndroid.init(this);
         presenter = new Presenter();
         presenter.attach(this);
         presenter.initView();
@@ -101,6 +98,7 @@ public class WeatherAppActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void setupView() {
+        centerTitle(this);
         rxPermissions = new RxPermissions(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mapFragment);

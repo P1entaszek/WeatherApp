@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recyclerViewItem"
+    android:background="@drawable/border"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -42,24 +43,25 @@
         android:id="@+id/weatherDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/weatherImageView"
-        app:layout_constraintTop_toBottomOf="@+id/weatherImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/weatherImageView"
+        tools:text="overcast clouds" />
 
     <TextView
         android:id="@+id/dateValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:textSize="20sp"
-        tools:text="12.03.2020"
         app:layout_constraintBottom_toBottomOf="@+id/weatherImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/weatherImageView" />
+        app:layout_constraintTop_toTopOf="@+id/weatherImageView"
+        tools:text="12.03.2020" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

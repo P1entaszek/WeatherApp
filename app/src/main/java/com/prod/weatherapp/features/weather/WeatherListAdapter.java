@@ -33,7 +33,7 @@ public class WeatherListAdapter extends RecyclerView.Adapter<WeatherListAdapter.
     private final ApiData apiData;
     private final Context context;
 
-    public WeatherListAdapter(ApiData apiData, Context context) {
+    WeatherListAdapter(ApiData apiData, Context context) {
         this.apiData = apiData;
         this.context = context;
     }
