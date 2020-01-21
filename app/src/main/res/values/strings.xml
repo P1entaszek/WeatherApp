@@ -4,4 +4,7 @@
     <string name="open_weather_api_key" translatable="false">6e2a2642803b430de88ccd5137a83066</string>
     <string name="google_maps_key" translatable="false">AIzaSyCAc-TzfpEJcIhwcIrjbPDBMD3lrGOhfX4</string>
     <string name="celsius_symbol">℃</string>
+    <string name="check_is_localization_enabled">check is localization enabled</string>
+    <string name="no_permission_granted">no permission granted</string>
+    <string name="check_is_network_connection_available">check is network connection available</string>
 </resources>

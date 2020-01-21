@@ -21,6 +21,7 @@ import com.prod.weatherapp.datasource.model.ApiData;
 import com.prod.weatherapp.features.weather.MVP.MVPContract;
 import com.prod.weatherapp.features.weather.MVP.Presenter;
 import com.prod.weatherapp.utils.BaseActivity;
+import com.prod.weatherapp.utils.Utils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
@@ -61,10 +62,10 @@ public class WeatherAppActivity extends BaseActivity implements OnMapReadyCallba
                             if (location != null) {
                                 presenter.getLastUserLocation(location.getLatitude(), location.getLongitude());
                             } else
-                                Toast.makeText(this, "no location finded", Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, this.getString(R.string.check_is_localization_enabled), Toast.LENGTH_LONG).show();
                         });
                     } else {
-                        Toast.makeText(this, "no permission granted", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, this.getString(R.string.no_permission_granted), Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -87,7 +88,11 @@ public class WeatherAppActivity extends BaseActivity implements OnMapReadyCallba
 
     @Override
     public void showError(String error) {
-        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+        if (Utils.isNetworkAvailable(this)) Toast.makeText(
+                getApplicationContext(),
+                this.getString(R.string.check_is_network_connection_available),
+                Toast.LENGTH_LONG).show();
+        else Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
     }
 
     @Override
